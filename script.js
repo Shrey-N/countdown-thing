@@ -96,6 +96,37 @@ const upgrades = [
     { id: 'lobby', name: 'Lobbyist', desc: '+$5,000/sec', cost: 250000, mult: 1.15, count: 0, type: 'idle', val: 5000 },
     { id: 'ceo', name: 'AI CEO', desc: '+$25,000/sec', cost: 1000000, mult: 1.15, count: 0, type: 'idle', val: 25000 }
 ];
+
+function saveGame() {
+    const gameState = {
+        portfolioVal,
+        clickPower,
+        idleIncome,
+        upgrades: upgrades.map(u => ({ id: u.id, count: u.count }))
+    };
+    localStorage.setItem('stockPumperSave', JSON.stringify(gameState));
+}
+
+function loadGame() {
+    const saved = localStorage.getItem('stockPumperSave');
+    if (saved) {
+        try {
+            const gameState = JSON.parse(saved);
+            portfolioVal = gameState.portfolioVal || 0;
+            clickPower = gameState.clickPower || 0.50;
+            idleIncome = gameState.idleIncome || 0;
+            if (gameState.upgrades) {
+                gameState.upgrades.forEach(savedUpgrade => {
+                    const upgrade = upgrades.find(u => u.id === savedUpgrade.id);
+                    if (upgrade) upgrade.count = savedUpgrade.count;
+                });
+            }
+        } catch (e) {
+            console.error('Save data corrupted', e);
+        }
+    }
+}
+
 const valEl = document.querySelector('.portfolio-val');
 const pumpBtn = document.getElementById('pump-btn');
 const upgradesStore = document.getElementById('upgrades-store');
@@ -142,6 +173,7 @@ function buyUpgrade(index) {
             clickPower += u.val;
         }
         updateStockDisplay();
+        saveGame();
     }
 }
 function updateStockDisplay() {
@@ -156,6 +188,8 @@ pumpBtn.addEventListener('click', (e) => {
     valEl.style.transform = 'scale(1.1)';
     setTimeout(() => valEl.style.transform = 'scale(1)', 100);
     updateStockDisplay();
+    // Save on manual click as well
+    saveGame();
 });
 setInterval(() => {
     if (idleIncome > 0) {
@@ -163,6 +197,13 @@ setInterval(() => {
         updateStockDisplay();
     }
 }, 100);
+
+// Autosave every 5 seconds just in case
+setInterval(saveGame, 5000);
+
+// Initialize game
+loadGame();
+updateStockDisplay();
 renderStore();
 const light = document.getElementById('reaction-light');
 const result = document.getElementById('reaction-result');
