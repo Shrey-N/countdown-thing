@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Open - Stock Countdown</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="ticker-wrap">
+        <div class="ticker" id="ticker-container">
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="title"></h1>
+        <div class="countdown-board">
+            <div class="time-section">
+                <span id="hours" class="time-value">00</span>
+                <span class="time-label">HOURS</span>
+            </div>
+            <span class="separator">:</span>
+            <div class="time-section">
+                <span id="minutes" class="time-value">00</span>
+                <span class="time-label">MINUTES</span>
+            </div>
+            <span class="separator">:</span>
+            <div class="time-section">
+                <span id="seconds" class="time-value">00</span>
+                <span class="time-label">SECONDS</span>
+            </div>
+            <span class="separator">.</span>
+            <div class="time-section ms-section">
+                <span id="milliseconds" class="time-value ms">000</span>
+                <span class="time-label">MILLIS</span>
+            </div>
+        </div>
+    </div>
+    <div class="games-container">
+        <h2 class="games-title">TIME KILLER ARCADE</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <h3>STOCK PUMPER</h3>
+                <div class="portfolio-val">$0.00</div>
+                <div class="stats-row">
+                    <span id="click-power-display">Power: $0.50</span>
+                    <span id="idle-income-display">Auto: $0.00/s</span>
+                </div>
+                <button id="pump-btn" class="game-btn">PUMP IT</button>
+                <div class="upgrades-container" id="upgrades-store">
+                </div>
+            </div>
+            <div class="game-card">
+                <h3>REACTION TRADE</h3>
+                <div id="reaction-light" class="light red">WAIT...</div>
+                <div id="reaction-result" class="result">0.000s</div>
+                <button id="reaction-btn" class="game-btn">START OVER</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
