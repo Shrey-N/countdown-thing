@@ -35,7 +35,7 @@ function initTickers() {
             <span class="price-change">${isPos ? '+' : ''}${change}%</span>
         </div>`;
     });
-    tickerHTML += `<div class="ticker__item highlight">UPDATE DROPS IN MIDNIGHT (IST)</div>`;
+    tickerHTML += `<div class="ticker__item highlight">UPDATE DROPS SOON!</div>`;
     if (tickerContainer) {
         tickerContainer.innerHTML = tickerHTML + tickerHTML;
     }
